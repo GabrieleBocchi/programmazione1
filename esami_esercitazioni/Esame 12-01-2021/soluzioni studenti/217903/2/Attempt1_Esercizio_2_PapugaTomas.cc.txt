@@ -1,0 +1,82 @@
+/*Esercizio 2 Papuga Tomas */
+
+#include <iostream>
+#include <cstddef>
+
+using namespace std;
+
+
+void print(const int a[], const int s, const char * prefix) {
+  cout << prefix;
+  for (int i = 0; i < s; i++) {
+    cout << a[i] << " ";
+  }
+  cout << endl;
+}
+
+void read_elements(int s[], const int ms, int & s_s) {
+  int r = 0;
+  for (s_s = 0; ((s_s < ms) && (r != -1)); ) {
+    cin >> r;
+    if (r != -1) s[s_s++] = r;
+  }
+}
+
+void get_elements(int s[], int s_s, int d1[], const int md1_s, int d1_s, int d2[], const int md2_s, int d2_s);
+// MR: d1_s e d2_se dovevano essere passati per riferimento!
+int main() {
+  const int maxdim = 10;
+
+  const int md1_s = maxdim;
+  int d1[md1_s];
+  int d1_s = 0;
+
+  const int md2_s = maxdim;
+  int d2[md2_s];
+  int d2_s = 0;
+
+  const int ms = maxdim;
+  int s[ms];
+  int s_s = 0;
+
+  read_elements(s, ms, s_s);
+
+  get_elements(s, s_s, d1, md1_s, d1_s, d2, md2_s, d2_s);
+  print(s, s_s, "Source = ");
+  print(d1, d1_s, "D1     = ");
+  print(d2, d2_s, "D2     = ");
+
+}
+
+void get_elements(int s[], int s_s, int d1[], const int md1_s, int d1_s, int d2[], const int md2_s, int d2_s){
+
+  if(s_s<10){
+    // MR: qui doveva usare s_s!!!! Inoltre per come fatto, entra in
+    // loop infinito...
+    if((s_s % 3 == 0) && (s[s_s] % 2 == 0)){
+
+       d1[d1_s] = s[s_s]*2;
+
+    }else{
+
+       d2[d2_s] = s[s_s]*3;
+    }
+  }
+
+  get_elements(s, s_s+1, d1, md1_s, d1_s+1, d2, md2_s, d2_s+1);
+
+}
+
+// s[] = array source di interi
+// s_s = dimensione array source
+
+// d1 = array dest1 di interi
+// md1_s = dimensione massima dell'array d1
+// d1_s = dimensione da calcolare dell'array dest1
+
+// d2[] = array des2 di interi
+// md2_s = dimensione massima dell?array d2
+// d2_s = dimensione da calcolare dell'array
+
+
+//s = 1 2 3 5 8 9 22 24 9 8 -1
